@@ -37,7 +37,10 @@ st.markdown("""
         visibility: visible !important;
     }
 
-    /* Hide ONLY unwanted elements: Deploy button, Manage app, footer, Record screen, Print */
+    /* Hide unwanted cloud host toolbar: Share, Star, Edit, GitHub icon, Deploy button, Manage app, footer, Record screen, Print */
+    [data-testid="stToolbarActions"],
+    [data-testid="stToolbarActionButton"],
+    [data-testid="stToolbarItems"],
     .stAppDeployButton,
     button[title="View app in Streamlit Community Cloud"],
     [data-testid="stAppDeployButton"],
