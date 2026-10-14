@@ -1,0 +1,15 @@
+{
+  "execution_mode": "Deterministic Operational Baseline (100% Offline / Zero Cloud Overhead)",
+  "model_provider": "Local Deterministic Engine & TF-IDF Index",
+  "model_name": "Air-Gapped Python Rule Engine",
+  "llm_calls_count": 0,
+  "total_input_tokens": 0,
+  "total_output_tokens": 0,
+  "published_input_rate_per_million": 0.0,
+  "published_output_rate_per_million": 0.0,
+  "currency": "USD",
+  "total_cost_usd": 0.0,
+  "total_cost_inr": 0.0,
+  "usd_to_inr_rate": 85.0,
+  "limitations_notes": "The production analysis run executed purely offline using deterministic rules and scikit-learn TF-IDF index. Zero external API calls were made and zero tokens were consumed. The pipeline is guaranteed 100% free of charge ($0.00) and completely air-gapped."
+}
