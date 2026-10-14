@@ -23,9 +23,22 @@ st.markdown("""
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
+    /* Hide Streamlit default header, toolbar, Deploy button, hamburger menu and footer */
+    #MainMenu {visibility: hidden; display: none !important;}
+    header {visibility: hidden; display: none !important;}
+    footer {visibility: hidden; display: none !important;}
+    .stAppDeployButton {display: none !important;}
+    [data-testid="stToolbar"] {visibility: hidden; display: none !important;}
+    [data-testid="stDecoration"] {visibility: hidden; display: none !important;}
+    [data-testid="stStatusWidget"] {visibility: hidden; display: none !important;}
+    [data-testid="stHeader"] {display: none !important;}
+    #manage-app-button {display: none !important;}
+    div[data-testid="stToolbar"] {display: none !important;}
+    button[title="View app in Streamlit Community Cloud"] {display: none !important;}
+
     /* Main Container Padding */
     .block-container {
-        padding-top: 1.5rem;
+        padding-top: 1.5rem !important;
         padding-bottom: 2.5rem;
         padding-left: clamp(1rem, 3vw, 2.5rem);
         padding-right: clamp(1rem, 3vw, 2.5rem);
