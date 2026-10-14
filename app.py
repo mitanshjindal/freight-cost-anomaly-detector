@@ -23,18 +23,80 @@ st.markdown("""
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    /* Hide Streamlit default header, toolbar, Deploy button, hamburger menu and footer */
-    #MainMenu {visibility: hidden; display: none !important;}
-    header {visibility: hidden; display: none !important;}
-    footer {visibility: hidden; display: none !important;}
-    .stAppDeployButton {display: none !important;}
-    [data-testid="stToolbar"] {visibility: hidden; display: none !important;}
-    [data-testid="stDecoration"] {visibility: hidden; display: none !important;}
-    [data-testid="stStatusWidget"] {visibility: hidden; display: none !important;}
-    [data-testid="stHeader"] {display: none !important;}
-    #manage-app-button {display: none !important;}
-    div[data-testid="stToolbar"] {display: none !important;}
-    button[title="View app in Streamlit Community Cloud"] {display: none !important;}
+    /* Keep top-right menu visible for System / Light / Dark theme selection */
+    #MainMenu {
+        visibility: visible !important;
+        display: block !important;
+    }
+    header {
+        visibility: visible !important;
+        background: transparent !important;
+    }
+    [data-testid="stHeader"] {
+        background: transparent !important;
+        visibility: visible !important;
+    }
+
+    /* Hide ONLY unwanted elements: Deploy button, Manage app, footer */
+    .stAppDeployButton,
+    button[title="View app in Streamlit Community Cloud"],
+    [data-testid="stAppDeployButton"],
+    #manage-app-button {
+        display: none !important;
+        visibility: hidden !important;
+    }
+    footer {
+        display: none !important;
+        visibility: hidden !important;
+    }
+
+    /* Dynamic Theme Support for Light & Dark Modes */
+    :root {
+        --card-bg: #FFFFFF;
+        --card-border: #E2E8F0;
+        --card-text: #0F172A;
+        --card-subtext: #64748B;
+        --note-bg: #FFFBEB;
+        --note-text: #334155;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --card-bg: #1E293B;
+            --card-border: #334155;
+            --card-text: #F8FAFC;
+            --card-subtext: #94A3B8;
+            --note-bg: #1E2433;
+            --note-text: #CBD5E1;
+        }
+    }
+
+    /* Streamlit Dark Theme Adaptations */
+    [data-theme="dark"] .metric-card,
+    .stApp[data-theme="dark"] .metric-card,
+    [data-testid="stAppViewContainer"][data-theme="dark"] .metric-card {
+        background: #1E293B !important;
+        border-color: #334155 !important;
+    }
+    [data-theme="dark"] .metric-value,
+    .stApp[data-theme="dark"] .metric-value {
+        color: #F8FAFC !important;
+    }
+    [data-theme="dark"] .metric-label,
+    .stApp[data-theme="dark"] .metric-label,
+    [data-theme="dark"] .metric-sub,
+    .stApp[data-theme="dark"] .metric-sub {
+        color: #94A3B8 !important;
+    }
+    [data-theme="dark"] .note-card,
+    .stApp[data-theme="dark"] .note-card {
+        background: #1E2433 !important;
+        border-color: #F59E0B !important;
+    }
+    [data-theme="dark"] .note-card p,
+    .stApp[data-theme="dark"] .note-card p {
+        color: #CBD5E1 !important;
+    }
 
     /* Main Container Padding */
     .block-container {
@@ -86,8 +148,8 @@ st.markdown("""
         width: 100%;
     }
     .metric-card {
-        background: #FFFFFF;
-        border: 1px solid #E2E8F0;
+        background: var(--card-bg, #FFFFFF);
+        border: 1px solid var(--card-border, #E2E8F0);
         border-radius: 10px;
         padding: clamp(14px, 2vw, 20px);
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
@@ -100,14 +162,14 @@ st.markdown("""
     .metric-label {
         font-size: clamp(0.72rem, 1.2vw, 0.8rem);
         font-weight: 600;
-        color: #64748B;
+        color: var(--card-subtext, #64748B);
         text-transform: uppercase;
         letter-spacing: 0.03em;
     }
     .metric-value {
         font-size: clamp(1.4rem, 2.5vw, 1.85rem);
         font-weight: 700;
-        color: #0F172A;
+        color: var(--card-text, #0F172A);
         margin-top: 4px;
         line-height: 1.2;
     }
