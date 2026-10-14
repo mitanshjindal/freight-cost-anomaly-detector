@@ -37,17 +37,24 @@ st.markdown("""
         visibility: visible !important;
     }
 
-    /* Hide ONLY unwanted elements: Deploy button, Manage app, footer */
+    /* Hide ONLY unwanted elements: Deploy button, Manage app, footer, Record screen, Print */
     .stAppDeployButton,
     button[title="View app in Streamlit Community Cloud"],
     [data-testid="stAppDeployButton"],
-    #manage-app-button {
+    #manage-app-button,
+    footer,
+    [data-testid="stMainMenuItem-print"],
+    li:has([data-testid="stMainMenuItem-print"]),
+    [data-testid="stMainMenuItem-recordScreencast"],
+    li:has([data-testid="stMainMenuItem-recordScreencast"]),
+    .stMenuVersionCopyButton,
+    div:has(.stMenuVersionCopyButton),
+    li:has(.stMenuVersionCopyButton) {
         display: none !important;
         visibility: hidden !important;
-    }
-    footer {
-        display: none !important;
-        visibility: hidden !important;
+        height: 0px !important;
+        padding: 0px !important;
+        margin: 0px !important;
     }
 
     /* Dynamic Theme Support for Light & Dark Modes */
@@ -324,6 +331,79 @@ st.markdown(f"""
 </div>
 """, unsafe_allow_html=True)
 
+# Sidebar Theme Switcher (System / Light / Dark)
+st.sidebar.markdown("### 🎨 Appearance")
+theme_choice = st.sidebar.segmented_control(
+    "Theme",
+    options=["System", "Light", "Dark"],
+    default="System",
+    label_visibility="collapsed"
+) if hasattr(st.sidebar, "segmented_control") else st.sidebar.radio(
+    "Theme",
+    ["System", "Light", "Dark"],
+    index=0,
+    horizontal=True,
+    label_visibility="collapsed"
+)
+
+if theme_choice == "Dark":
+    st.markdown("""
+    <style>
+        .stApp, body, html {
+            background-color: #0F172A !important;
+            color: #F8FAFC !important;
+        }
+        .metric-card {
+            background: #1E293B !important;
+            border-color: #334155 !important;
+        }
+        .metric-value {
+            color: #F8FAFC !important;
+        }
+        .metric-label, .metric-sub {
+            color: #94A3B8 !important;
+        }
+        .note-card {
+            background: #1E2433 !important;
+        }
+        .note-card p {
+            color: #CBD5E1 !important;
+        }
+        div[data-testid="stSidebar"] {
+            background-color: #1E293B !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+elif theme_choice == "Light":
+    st.markdown("""
+    <style>
+        .stApp, body, html {
+            background-color: #FFFFFF !important;
+            color: #0F172A !important;
+        }
+        .metric-card {
+            background: #FFFFFF !important;
+            border-color: #E2E8F0 !important;
+        }
+        .metric-value {
+            color: #0F172A !important;
+        }
+        .metric-label, .metric-sub {
+            color: #64748B !important;
+        }
+        .note-card {
+            background: #FFFBEB !important;
+        }
+        .note-card p {
+            color: #334155 !important;
+        }
+        div[data-testid="stSidebar"] {
+            background-color: #F8FAFC !important;
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
+st.sidebar.markdown("---")
 # Sidebar Filters
 st.sidebar.header("Filter Criteria")
 
